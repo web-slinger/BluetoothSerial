@@ -243,13 +243,13 @@ public class BluetoothSerial extends CordovaPlugin {
             discoverIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, discoverableDuration);
             cordova.getActivity().startActivity(discoverIntent);
 
-        } else if (action.equals(IS_PAIRED){ 
+        } else if (action.equals(IS_PAIRED)){ 
             
             string deviceAddress = args.getString(0);            
             bool result = isPaired(deviceAddress);                
             callbackContext.success(result);
             
-        } else if (action.equals(PAIR){ 
+        } else if (action.equals(PAIR)){ 
             
             string deviceAddress = args.getString(0);            
             bool result = createBond(deviceAddress);
