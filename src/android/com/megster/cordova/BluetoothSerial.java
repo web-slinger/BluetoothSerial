@@ -53,6 +53,8 @@ public class BluetoothSerial extends CordovaPlugin {
     private static final String CLEAR_DEVICE_DISCOVERED_LISTENER = "clearDeviceDiscoveredListener";
     private static final String SET_NAME = "setName";
     private static final String SET_DISCOVERABLE = "setDiscoverable";
+    private static final String IS_PAIRED = "isPaired";
+    private static final String PAIR = "pair";
 
     // callbacks
     private CallbackContext connectCallback;
@@ -241,6 +243,18 @@ public class BluetoothSerial extends CordovaPlugin {
             discoverIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, discoverableDuration);
             cordova.getActivity().startActivity(discoverIntent);
 
+        } else if (action.equals(IS_PAIRED){ 
+            
+            string deviceAddress = args.getString(0);            
+            bool result = isPaired(deviceAddress);                
+            callbackContext.success(result);
+            
+        } else if (action.equals(PAIR){ 
+            
+            string deviceAddress = args.getString(0);            
+            bool result = createBond(deviceAddress);
+            callbackContext.success(result);
+            
         } else {
             validAction = false;
 
@@ -276,6 +290,27 @@ public class BluetoothSerial extends CordovaPlugin {
         if (bluetoothSerialService != null) {
             bluetoothSerialService.stop();
         }
+    }
+    
+    public boolean isPaired(String address) throws Exception {
+        try {
+            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(address);
+            return device.getBondState() == BluetoothDevice.BOND_BONDED;
+        }	catch(Exception e) {
+            throw e;
+        }
+    }
+                   
+    public boolean createBond(String address) throws Exception { 
+        try {
+            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(address);
+            Class class1 = Class.forName("android.bluetooth.BluetoothDevice");
+            Method createBondMethod = class1.getMethod("createBond");  
+            Boolean returnValue = (Boolean) createBondMethod.invoke(device);  
+            return returnValue.booleanValue();
+        } catch (Exception e){
+            throw e;
+        }          
     }
 
     private void listBondedDevices(CallbackContext callbackContext) throws JSONException {
