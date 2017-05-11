@@ -305,10 +305,9 @@ public class BluetoothSerial extends CordovaPlugin {
     public boolean createBond(String address) throws JSONException { 
         try {
             BluetoothDevice device = bluetoothAdapter.getRemoteDevice(address);
-            Class class1 = Class.forName("android.bluetooth.BluetoothDevice");
-            Method createBondMethod = class1.getMethod("createBond");  
-            Boolean returnValue = (Boolean) createBondMethod.invoke(device);  
-            return returnValue.booleanValue();
+            
+            BluetoothDevice device = bluetoothAdapter.getRemoteDevice(bluetoothAddress);
+            return device.createBond();
         } catch (Exception e){
             return false;
         }          
