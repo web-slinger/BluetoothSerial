@@ -247,14 +247,14 @@ public class BluetoothSerial extends CordovaPlugin {
         } else if (action.equals(IS_PAIRED)){ 
             
             String deviceAddress = args.getString(0);            
-            Boolean result = isPaired(deviceAddress);                
-            callbackContext.success(result);
+            Boolean result = isPaired(deviceAddress);           
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, result));
             
         } else if (action.equals(PAIR)){ 
             
             String deviceAddress = args.getString(0);            
             Boolean result = createBond(deviceAddress);
-            callbackContext.success(result);
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, result));
             
         } else {
             validAction = false;
