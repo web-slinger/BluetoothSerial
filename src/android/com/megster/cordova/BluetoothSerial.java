@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Set;
+import java.lang.reflect.Method;
 
 /**
  * PhoneGap Plugin for Serial Communication over Bluetooth
@@ -245,14 +246,14 @@ public class BluetoothSerial extends CordovaPlugin {
 
         } else if (action.equals(IS_PAIRED)){ 
             
-            string deviceAddress = args.getString(0);            
-            bool result = isPaired(deviceAddress);                
+            String deviceAddress = args.getString(0);            
+            Boolean result = isPaired(deviceAddress);                
             callbackContext.success(result);
             
         } else if (action.equals(PAIR)){ 
             
-            string deviceAddress = args.getString(0);            
-            bool result = createBond(deviceAddress);
+            String deviceAddress = args.getString(0);            
+            Boolean result = createBond(deviceAddress);
             callbackContext.success(result);
             
         } else {
