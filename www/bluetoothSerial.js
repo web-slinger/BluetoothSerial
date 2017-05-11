@@ -26,6 +26,14 @@ module.exports = {
     isConnected: function (success, failure) {
         cordova.exec(success, failure, "BluetoothSerial", "isConnected", []);
     },
+    
+    isPaired: function (macAddress,success, failure) {
+        cordova.exec(success, failure, "BluetoothSerial", "isPaired", [macAddress]);
+    },
+
+    pair: function (macAddress,success, failure) {
+        cordova.exec(success, failure, "BluetoothSerial", "pair", [macAddress]);
+    },
 
     // the number of bytes of data available to read is passed to the success function
     available: function (success, failure) {
